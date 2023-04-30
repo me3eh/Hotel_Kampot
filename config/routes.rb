@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 #   WashOutSample::Application.routes.draw do
 #     wash_out :rumbas
 #   end
-  wash_out :rumbas
+  wash_out :reservations
 end
 
 # Application.routes.draw do

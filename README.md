@@ -2,10 +2,10 @@
 
 Project from RSI. SOAP
 System rezerwacji pokoi w hoteli
-- [ ] Baza rezerwacji (Jaki pokój, od kiedy - dzień, godzina, do kiedy - dzień godzina)
-- [ ] Wyszukiwanie pokojów
+- [x] Baza rezerwacji (Jaki pokój, od kiedy - dzień, godzina, do kiedy - dzień godzina)
+- [x] Wyszukiwanie pokojów
 - [ ] Kupno rezerwacji,
-- [ ] Odbiór potwierdzenia kupna w formacie PDF
+- [x] Odbiór potwierdzenia kupna w formacie PDF
 - [ ] Sprawdzenie rezerwacji na podstawie podanego numeru
 
 - [x] ssl

@@ -72,3 +72,5 @@ group :test do
 end
 
 gem "wash_out", "~> 0.12.0"
+
+gem "pry", "~> 0.14.2"
