@@ -19,10 +19,20 @@ class ReservationsController < ApplicationController
 
   soap_action "get_pdf",
               :args   => { :id => :string },
-              :return => :string
+              :return => { pdf: :string, pdf_name: :string }
   def get_pdf
-    file_data = Base64.encode64(File.binread("tmp/ER2023_plakat_final_2704.pdf"))
-    render :soap => (file_data)
+    binding.pry
+    uuid = SecureRandom.uuid
+    filename = "#{uuid}.pdf"
+    id_for_pdf = "#{params[:id]}"
+
+      ::Prawn::Document.generate("tmp/#{filename}") do
+        text "Hello World!"
+        text id_for_pdf
+      end
+
+    file_data = Base64.encode64(File.binread("tmp/#{filename}"))
+    render :soap => { pdf: (file_data), pdf_name: filename }
   end
 
   soap_action "integers_to_boolean",
