@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class ReservationsController < ApplicationController
-  soap_service namespace: 'urn:WashOut'
+  soap_service namespace: 'urn:WashOut', wsse_username: "username", wsse_password: "password"
 
-  before_action :dump_parameters
-  def dump_parameters
-    puts " asdfasdfasdfasdfasfasdf\n\n\n\n\n\nasdfasdfasfasdfasdfasdfasdf"
+  before_action :log_action
+  def log_action
+    logger.info "Invoke action: #{params[:action]}.\n Here is skeleton"
+    logger.warn AsciiArt::Skeleton.new.call
   end
-  # Simple case
+
   soap_action "list",
               :args   => nil,
               :return => { list: { values: [{id: :string, room_number: :integer, from: :string, to: :string}] } }
@@ -19,9 +20,9 @@ class ReservationsController < ApplicationController
       res.attributes
     end
 
-    hahah = { list: { values: f } }
+    reservations_list = { list: { values: f } }
 
-    render :soap => hahah
+    render :soap => reservations_list
   end
 
   soap_action "get_pdf",
