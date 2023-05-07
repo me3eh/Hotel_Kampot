@@ -30,6 +30,8 @@ class ReservationsController < ApplicationController
               :return => { pdf: :string, pdf_name: :string }
   def get_pdf
     reservation = Reservation.find_by(id: params[:id])
+    raise SOAPError, "There is no reservation with such id" if reservation.nil?
+
     uuid = SecureRandom.uuid
     reservation.update(uuid: uuid)
     filename = "#{uuid}.pdf"
@@ -48,10 +50,10 @@ class ReservationsController < ApplicationController
   end
 
   soap_action "get_reservation_by_code",
-              :args   => { :id => :string },
+              :args   => { :uuid => :string },
               :return => { value: {id: :string, room_number: :integer, from: :string, to: :string} }
   def get_reservation_by_code
-    reservation = Reservation.find_by(uuid: params[:id])
+    reservation = Reservation.find_by(uuid: params[:uuid])
     raise SOAPError, "There is no reservation with such uuid" if reservation.nil?
 
     reservation_hash =
