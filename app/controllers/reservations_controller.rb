@@ -5,7 +5,7 @@ class ReservationsController < ApplicationController
 
   before_action :log_action
   def log_action
-    logger.info "Invoke action: #{params[:action]}.\n Here is skeleton"
+    logger.info "Invoke action: #{soap_action}.\n Here is skeleton"
     logger.warn AsciiArt::Skeleton.new.call
   end
 
@@ -31,6 +31,7 @@ class ReservationsController < ApplicationController
   def get_pdf
     reservation = Reservation.find_by(id: params[:id])
     raise SOAPError, "There is no reservation with such id" if reservation.nil?
+    raise SOAPError, "This reservation was already booked" if reservation.uuid.present?
 
     uuid = SecureRandom.uuid
     reservation.update(uuid: uuid)
